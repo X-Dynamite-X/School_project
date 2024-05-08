@@ -69,7 +69,6 @@ $(document).ready(function () {
                 $("#errurMessageInputCodeSubject").text("");
                 $("#errurMessageInputSuccessMark").text("");
                 $("#errurMessageInputFullMark").text("");
-                
                 $("#errurMessageInputSubject").text(errur.name);
                 $("#errurMessageInputCodeSubject").text(errur.subject_code);
                 $("#errurMessageInputSuccessMark").text(errur.success_mark);
