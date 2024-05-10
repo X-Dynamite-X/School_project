@@ -60,8 +60,15 @@ $(document).ready(function () {
                 </td>
             </tr>`
             ;
+            $('[id^="EditSubject"]').addClass('hidden');
+
             $("#tbodySubject").append(createTrSubject);
-            },
+            var infoTrSubject =`
+            `;
+            $("#tbodySubject").append(infoTrSubject);
+
+
+        },
             error: function (data) {
                 var errur = data.responseJSON.message;
                 console.log(errur);

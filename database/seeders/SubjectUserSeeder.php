@@ -27,20 +27,20 @@ class SubjectUserSeeder extends Seeder
             ], [
                 'user_id' => '1',
                 'subject_id' => '3',
-                'mark' => '80',
+                'mark' => '40',
             ], [
                 'user_id' => '1',
                 'subject_id' => '4',
-                'mark' => '100',
+                'mark' => '68',
             ], [
                 'user_id' => '1',
                 'subject_id' => '5',
-                'mark' => '95',
+                'mark' => '66',
             ],
             [
                 'user_id' => '2',
                 'subject_id' => '1',
-                'mark' => '50',
+                'mark' => '75',
 
             ], [
                 'user_id' => '2',
@@ -49,11 +49,11 @@ class SubjectUserSeeder extends Seeder
             ], [
                 'user_id' => '2',
                 'subject_id' => '3',
-                'mark' => '80',
+                'mark' => '90',
             ], [
                 'user_id' => '3',
                 'subject_id' => '4',
-                'mark' => '100',
+                'mark' => '68',
             ],
         ]);
     }

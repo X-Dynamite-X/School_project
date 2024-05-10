@@ -12,8 +12,7 @@
             <thead>
                 <tr>
                     <th class="px-4 py-2 text-sm font-semibold text-gray-900 bg-gray-100">ID</th>
-
-                    <th class="px-4 py-2 text-sm font-semibold text-gray-900 bg-gray-100">Name</th>
+                    <th class="px-4 py-2 text-sm font-semibold text-gray-900 bg-gray-100">Name Subject</th>
                     <th class="px-4 py-2 text-sm font-semibold text-gray-900 bg-gray-100">Code Subject</th>
                     <th class="px-4 py-2 text-sm font-semibold text-gray-900 bg-gray-100">Success Mark</th>
                     <th class="px-4 py-2 text-sm font-semibold text-gray-900 bg-gray-100">Full Mark</th>
@@ -38,6 +37,7 @@
                             <div class="flex-row">
                                 <div class="bg-gray-100">
                                     <button id="subjectActionInfo_{{ $subject->id }}"
+                                        onclick="showInfoModal('{{ $subject->id }}')"
                                         class="px-2 py-2 text-blue-400 hover:text-blue-600 ">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                             fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
@@ -45,9 +45,9 @@
                                             <path
                                                 d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
                                         </svg>
-
                                     </button>
                                     <button id="subjectActionEdit_{{ $subject->id }}"
+                                        onclick="showEditModal('{{ $subject->id }}')"
                                         class="px-2 py-2 text-yellow-400 hover:text-yellow-600 ">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                             fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
@@ -56,6 +56,7 @@
                                         </svg>
                                     </button>
                                     <button id="subjectActionDelete_{{ $subject->id }}"
+                                        onclick="showDeleteModal('{{ $subject->id }}')"
                                         class="px-2 py-2 text-red-400 hover:text-red-600 ">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                             fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -76,36 +77,73 @@
             role="dialog" aria-modal="true">
             @include('admin.model.subjects.createSubject')
         </div>
-    </div>
-@endsection
-@section('js')
-    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/2.0.6/js/dataTables.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#subject_table').DataTable({
-                "paging": true,
-                "pageLength": 10
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('#openCreatSubject').click(function() {
-                $('#CreatSubject').removeClass('hidden');
-            });
+        <div class="modl">
+            <div class="infoModle">
+                @foreach ($subjects as $subject)
+                    <div id="InfoSubject{{ $subject->id }}" class=" hidden fixed z-10 inset-0 overflow-y-auto "
+                        aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                        @include('admin.model.subjects.infoSubject')
+                    </div>
+                @endforeach
+            </div>
+            <div class="editModle">
+                @foreach ($subjects as $subject)
+                    <div id="EditSubject{{ $subject->id }}" class=" hidden fixed z-10 inset-0 overflow-y-auto "
+                        aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                        @include('admin.model.subjects.editSubject')
+                    </div>
+                @endforeach
+            </div>
+            <div class="deleteModle">
+                @foreach ($subjects as $subject)
+                    <div id="DeleteSubject{{ $subject->id }}" class="hidden fixed z-10 inset-0 overflow-y-auto "
+                        aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                        @include('admin.model.subjects.deleteSubject')
+                    </div>
+                @endforeach
+            </div>
+            <div class="editSubjectUserModle">
+                @foreach ($subjects as $subject)
+                    @foreach ($subject->users as $subjectUser)
+                        <div id="EditSubjectUser_{{ $subject->id }}_{{ $subjectUser->id }}" class="hidden fixed z-10 inset-0 overflow-y-auto "
+                            aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                            @include('admin.model.subjects.editSubjectUser')
+                        </div>
+                    @endforeach
+                @endforeach
 
-            $('#CreatSubject').on('click', function(event) {
-                if (event.target === this) {
-                    $(this).addClass('hidden');
-                }
+            </div>
+        </div>
+    @endsection
+    @section('js')
+        <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/2.0.6/js/dataTables.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#subject_table').DataTable({
+                    "paging": true,
+                    "pageLength": 10
+                });
             });
-        });
+        </script>
+        @foreach ($subjects as $subject)
+            <script>
+                $(document).ready(function() {
+                    $('#subjectUserTable_{{ $subject->id }}').DataTable({
+                        "paging": true,
+                        "pageLength": 10
+                    });
+                });
+            </script>
+        @endforeach
+        <script src="{{ asset('js/buttonModleAjax/SubjectcreateCloseModle.js') }}"></script>
+        <script src="{{ asset('js/subject/CreateSubject.js') }}"></script>
+        <script src="{{ asset('js/subject/EditSubject.js') }}"></script>
+        <script src="{{ asset('js/subject/DeleteSubject.js') }}"></script>
 
-        function closeModal() {
-            var modal = document.querySelector('#CreatSubject');
-            modal.classList.add('hidden');
-        }
-    </script>
-    <script src="{{ asset('js/CreateSubject.js') }}"></script>
-@endsection
+        @include('admin.model.jsScriptModle.infoSubjecScriptModle')
+        @include('admin.model.jsScriptModle.editSubjectScriptModle')
+        @include('admin.model.jsScriptModle.deleteSubjectScriptModle')
+        @include('admin.model.jsScriptModle.editSubjectUserScriptModle')
+
+    @endsection

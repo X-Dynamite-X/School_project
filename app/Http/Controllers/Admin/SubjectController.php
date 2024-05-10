@@ -10,36 +10,27 @@ use Illuminate\Support\Facades\Validator;
 
 class SubjectController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
+    public function index(){
         $subjects = Subject::all();
         $subjectUsers = SubjectUser::all();
-        return view("admin.subject", ['subjects' => $subjects]);
+        return view("admin.subject", [ 'subjects' => $subjects , "subjectUsers"=>$subjectUsers ]);
     }
-
-    public function create()
-    {
-        //
-        return "done";
-    }
-    public function store(Request $request)
-    {
-        //
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            "subject_code" => "required|min:3|max:6|unique:subjects",
-            'success_mark' => 'required|numeric|min:0',
-            'full_mark' => 'required|numeric|min:0|gte:success_mark',
-        ],
-        [
-            'subject_input.required' => 'The subject field is required',
-            'subject_code.required' => 'The code field is required',
-            'success_mark.required' => 'The minimum mark field is required',
-            'full_mark.required' => 'The full mark field is required',
-        ]);
+    public function store(Request $request){
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required|string|max:255',
+                "subject_code" => "required|min:3|max:6|unique:subjects",
+                'success_mark' => 'required|numeric|min:0',
+                'full_mark' => 'required|numeric|min:0|gte:success_mark',
+            ],
+            [
+                'subject_input.required' => 'The subject field is required',
+                'subject_code.required' => 'The code field is required',
+                'success_mark.required' => 'The minimum mark field is required',
+                'full_mark.required' => 'The full mark field is required',
+            ]
+        );
         if ($validator->fails()) {
             return response()->json(['error' => 'Validation failed', 'message' => $validator->errors()], 422);
         }
@@ -51,26 +42,40 @@ class SubjectController extends Controller
         ]);
         return response()->json($subject);
     }
+    public function update(Request $request, string $id){
+        $subject = Subject::find($id);
 
-    public function show(string $id)
-    {
-        
-    }
+        if (!$subject) {
+            return response()->json(['error' => 'Subject not found'], 404);
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required|string|max:255',
+                'subject_code' => "required|min:3|max:6|unique:subjects,subject_code,$id",
+                'success_mark' => 'required|numeric|min:0',
+                'full_mark' => 'required|numeric|min:0|gte:success_mark',
+            ],
+            [
+                'name.required' => 'The name field is required',
+                'subject_code.required' => 'The subject code field is required',
+                'success_mark.required' => 'The minimum mark field is required',
+                'full_mark.required' => 'The full mark field is required',
+            ]
+        );
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
+        if ($validator->fails()) {
+            return response()->json(['error' => 'Validation failed', 'message' => $validator->errors()], 422);
+        }
+
+        $subject->name = $request->input('name');
+        $subject->subject_code = $request->input('subject_code');
+        $subject->success_mark = $request->input('success_mark');
+        $subject->full_mark = $request->input('full_mark');
+        $subject->save();
+
+        return response()->json($subject);
     }
 
     /**
@@ -78,6 +83,13 @@ class SubjectController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $subject = Subject::find($id);
+
+        if (!$subject) {
+            return response()->json([], 404);
+        }
+
+        $subject->delete();
+        return response()->json(["message"=>"Delete Successfuly"]);
     }
 }
