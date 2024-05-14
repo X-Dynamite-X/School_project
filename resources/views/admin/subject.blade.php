@@ -5,10 +5,11 @@
 @endsection
 @section('content_admin')
     <div class="flex-grow p-4 container mt-4">
-        <button id="openCreatSubject" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-            Create
-        </button>
+
         <table id="subject_table" class="w-full border-collapse border border-gray-300">
+            <button id="openCreatSubject" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                Create
+            </button>
             <thead>
                 <tr>
                     <th class="px-4 py-2 text-sm font-semibold text-gray-900 bg-gray-100">ID</th>
@@ -78,41 +79,7 @@
             @include('admin.model.subjects.createSubject')
         </div>
         <div class="modl">
-            <div class="infoModle">
-                @foreach ($subjects as $subject)
-                    <div id="InfoSubject{{ $subject->id }}" class=" hidden fixed z-10 inset-0 overflow-y-auto "
-                        aria-labelledby="modal-title" role="dialog" aria-modal="true">
-                        @include('admin.model.subjects.infoSubject')
-                    </div>
-                @endforeach
-            </div>
-            <div class="editModle">
-                @foreach ($subjects as $subject)
-                    <div id="EditSubject{{ $subject->id }}" class=" hidden fixed z-10 inset-0 overflow-y-auto "
-                        aria-labelledby="modal-title" role="dialog" aria-modal="true">
-                        @include('admin.model.subjects.editSubject')
-                    </div>
-                @endforeach
-            </div>
-            <div class="deleteModle">
-                @foreach ($subjects as $subject)
-                    <div id="DeleteSubject{{ $subject->id }}" class="hidden fixed z-10 inset-0 overflow-y-auto "
-                        aria-labelledby="modal-title" role="dialog" aria-modal="true">
-                        @include('admin.model.subjects.deleteSubject')
-                    </div>
-                @endforeach
-            </div>
-            <div class="editSubjectUserModle">
-                @foreach ($subjects as $subject)
-                    @foreach ($subject->users as $subjectUser)
-                        <div id="EditSubjectUser_{{ $subject->id }}_{{ $subjectUser->id }}" class="hidden fixed z-10 inset-0 overflow-y-auto "
-                            aria-labelledby="modal-title" role="dialog" aria-modal="true">
-                            @include('admin.model.subjects.editSubjectUser')
-                        </div>
-                    @endforeach
-                @endforeach
-
-            </div>
+            @include('admin.model.subjects.allModle')
         </div>
     @endsection
     @section('js')
@@ -140,10 +107,17 @@
         <script src="{{ asset('js/subject/CreateSubject.js') }}"></script>
         <script src="{{ asset('js/subject/EditSubject.js') }}"></script>
         <script src="{{ asset('js/subject/DeleteSubject.js') }}"></script>
+        <script src="{{ asset('js/subject/createSubjectUser.js') }}"></script>
+        <script src="{{ asset('js/subject/editSubjectUser.js') }}"></script>
+        <script src="{{ asset('js/subject/deleteSubjectUser.js') }}"></script>
+
+
 
         @include('admin.model.jsScriptModle.infoSubjecScriptModle')
         @include('admin.model.jsScriptModle.editSubjectScriptModle')
         @include('admin.model.jsScriptModle.deleteSubjectScriptModle')
         @include('admin.model.jsScriptModle.editSubjectUserScriptModle')
-
+        @include('admin.model.jsScriptModle.createSubjectUserModle')
+        @include('admin.model.jsScriptModle.deleteSubjectUserModle')
+        @include('admin.model.subjects.routeSubject')
     @endsection

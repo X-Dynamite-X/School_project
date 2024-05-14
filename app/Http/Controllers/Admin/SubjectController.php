@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
 use App\Models\Subject;
 use App\Models\SubjectUser;
 use Illuminate\Http\Request;
@@ -13,7 +14,8 @@ class SubjectController extends Controller
     public function index(){
         $subjects = Subject::all();
         $subjectUsers = SubjectUser::all();
-        return view("admin.subject", [ 'subjects' => $subjects , "subjectUsers"=>$subjectUsers ]);
+        $users = User::all();
+        return view("admin.subject", [ 'subjects' => $subjects , "subjectUsers"=>$subjectUsers ,"users"=>$users]);
     }
     public function store(Request $request){
         $validator = Validator::make(
@@ -40,7 +42,8 @@ class SubjectController extends Controller
             'success_mark' => $request->input('success_mark'),
             'full_mark' => $request->input('full_mark'),
         ]);
-        return response()->json($subject);
+        $users = User::all();
+        return response()->json([$subject,$users]);
     }
     public function update(Request $request, string $id){
         $subject = Subject::find($id);

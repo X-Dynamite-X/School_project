@@ -14,6 +14,7 @@ class SubjectUserSeeder extends Seeder
     public function run(): void
     {
         //
+        
         DB::table('subject_users')->insert([
             [
                 'user_id' => '1',

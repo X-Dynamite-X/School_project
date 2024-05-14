@@ -1,14 +1,25 @@
+
 <div class="relative z-10" aria-labelledby="modleInfoSubject_{{ $subject->id }}" role="dialog" aria-modal="true">
     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
     <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+
         <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
             <div
                 class="relative  transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-8/12	 ">
                 <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4 ">
+                    <button id="openCreatSubjectUser_{{$subject->id}}"
+                        onclick="showCreateSubjectUserModal('{{ $subject->id }}')"
+                       class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ">
+                       Create
+                   </button>
                     <div class="sm:flex sm:items-start w-full">
+
                         <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-center w-full">
+
                             <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Info Subject
                             </h3>
+
                             <table id="subjectUserTable_{{$subject->id}}" style="width: 100%" class="w-full border-collapse border border-gray-300">
                                 <thead>
                                     <tr>
@@ -21,16 +32,16 @@
                                 </thead>
                                 <tbody id="tbodySubjectUser{{$subject->id}}" class="bg-white divide-y divide-gray-200 full-width">
                                     @foreach ($subject->users as $subjectUser)
-                                        <tr id="trSubject_{{ $subject->id }}">
-                                            <td id="subjectID_{{ $subject->id }}"    class="px-4 py-2 text-sm text-gray-900 whitespace-nowrap">
+                                        <tr id="trSubjectUser_{{ $subject->id }}_{{$subjectUser->id}}">
+                                            <td id="subjectID_{{ $subject->id }}_{{$subjectUser->id}}"    class="px-4 py-2 text-sm text-gray-900 whitespace-nowrap">
                                                 {{ $subjectUser->id }}</td>
-                                            <td id="subjectName_{{ $subject->id }}"  class="px-4 py-2 text-sm text-gray-900 whitespace-nowrap">
+                                            <td id="subjectName_{{ $subject->id }}_{{$subjectUser->id}}"  class="px-4 py-2 text-sm text-gray-900 whitespace-nowrap">
                                                 {{ $subject->name }}</td>
-                                            <td id="subjectUserName_{{ $subjectUser->id }}" class="px-4 py-2 text-sm text-gray-900 whitespace-nowrap">
+                                            <td id="subjectUserName_{{ $subject->id }}_{{$subjectUser->id}}" class="px-4 py-2 text-sm text-gray-900 whitespace-nowrap">
                                                 {{ $subjectUser->name }}</td>
-                                            <td id="subjecUserMark_{{ $subjectUser->id }}"
+                                            <td id="subjecUserMark_{{ $subject->id }}_{{$subjectUser->id}}"
                                                 class="px-4 py-2 text-sm text-gray-900 whitespace-nowrap">{{ $subjectUser->pivot->mark }}</td>
-                                            <td id="subjectAction_{{ $subject->id }}"
+                                            <td id="subjectAction_{{ $subject->id }}_{{$subjectUser->id}}"
                                                 class="px-4 py-2 text-sm text-gray-900 whitespace-nowrap text-center w-10">
                                                 <div class="flex-row">
                                                     <div class="bg-gray-100">

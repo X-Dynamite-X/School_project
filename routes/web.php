@@ -21,11 +21,11 @@ Route::prefix('admin')->middleware(["role:admin", "auth"])->group(function () {
     Route::get('/subject', [SubjectController::class, 'index'])->name('subject_index');
     Route::post('/subject/store', [SubjectController::class, 'store'])->name("subject_store");
     Route::put('/subject/update/{id}', [SubjectController::class, 'update'])->name("subject_update");
+    Route::delete("/subject/destroy/{id}", [SubjectController::class, "destroy"])->name("subject_destroy");
 
-    // Route::get('/subjectUser', [SubjectController::class, 'index'])->name('subject_index');
-    Route::post('/subject/user/store', [SubjectUserController::class, 'store'])->name("subjectUser_store");
-    Route::put('/subject/user/update/{subjectId}{subjectUserId}', [SubjectUserController::class, 'update'])->name("subjectUser_update");
-    Route::delete("/subject/user/destroy/{subjectId}{subjectUserId}", [SubjectUserController::class, "destroy"])->name("subject_destroy");
+    //subject User
+    Route::post('/subject/user/store/{subjectId}', [SubjectUserController::class, 'store'])->name("subjectUser_store");
+    Route::put('/subject/user/update/{subjectId}/{subjectUserId}', [SubjectUserController::class, 'update'])->name("subjectUser_update");
+    Route::delete("/subject/user/destroy/{subjectId}/{subjectUserId}", [SubjectUserController::class, "destroy"])->name("subjectUser_destroy");
 });
 
-Route::delete("/subject/destroy/{id}", [SubjectController::class, "destroy"])->name("subject_destroy");
