@@ -8,6 +8,7 @@ use App\Models\SubjectUser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
 
 class SubjectController extends Controller
 {
@@ -17,6 +18,9 @@ class SubjectController extends Controller
         $users = User::all();
         return view("admin.subject", [ 'subjects' => $subjects , "subjectUsers"=>$subjectUsers ,"users"=>$users]);
     }
+
+
+
     public function store(Request $request){
         $validator = Validator::make(
             $request->all(),

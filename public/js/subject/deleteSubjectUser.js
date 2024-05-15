@@ -17,8 +17,10 @@ $(document).on("click", ".buttonDeleteSubjectUser", function () {
             // var userId =data.user.user_id
 
             $("#trSubjectUser_" + subjectId + "_" + userId).remove();
+            $("#InfoSubject" + subjectId).remove();
             $("#EditSubjectUser_" + subjectId + "_" + userId).remove();
             $("#DeleteSubjectUser_" + subjectId + "_" + userId).remove();
+
 
             var option_user = `
             <option id="optionUserNameInSubjectUser_${subjectId}_${userId}"

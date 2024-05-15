@@ -16,7 +16,11 @@ class UserController extends Controller
         $users = User::all();
         return view("admin.user",['users'=>$users]);
     }
+    public function getUser(){
+        $user = User::all();
 
+        return DataTables($user)->make(false);
+    }
 
     /**
      * Show the form for creating a new resource.

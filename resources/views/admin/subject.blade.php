@@ -88,8 +88,9 @@
         <script>
             $(document).ready(function() {
                 $('#subject_table').DataTable({
-                    "paging": true,
-                    "pageLength": 10
+                    ajax: 'getSubject',
+                    processing: true,
+                    serverSide: true
                 });
             });
         </script>
