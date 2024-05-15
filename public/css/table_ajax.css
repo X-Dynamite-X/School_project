@@ -174,3 +174,7 @@ div#tableID_info {
 {
 border: 0;
 }
+div#user_table_wrapper {
+    height: 90vh;
+    overflow-y: scroll;
+}

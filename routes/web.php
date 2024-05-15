@@ -17,6 +17,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::prefix('admin')->middleware(["role:admin", "auth"])->group(function () {
     // Rout Users
     Route::get('/user', [UserController::class, 'index'])->name('user_index');
+    Route::get('/getUser', [UserController::class, 'getUser'])->name('getUser_index');
+    Route::post('/user/store', [UserController::class, 'store'])->name('user_store');
+
     // Rout Subjects
     Route::get('/subject', [SubjectController::class, 'index'])->name('subject_index');
     Route::post('/subject/store', [SubjectController::class, 'store'])->name("subject_store");

@@ -34,5 +34,12 @@ class RoleSeeder extends Seeder
         if ($userUser) {
             $userUser->assignRole($userRole);
         }
+        for ($i = 3; $i <= 100; $i++) {
+            $userName = 'mozan' . $i;
+            $user = User::where('name', $userName)->first();
+            if ($user) {
+                $user->assignRole($userRole);
+            }
+        }
     }
 }
