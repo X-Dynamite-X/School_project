@@ -22,7 +22,7 @@ $(document).ready(function () {
             },
             {
                 data: "Action",
-                className: "px-4 py-2 text-sm text-gray-900 whitespace-nowrap",
+                className: "px-4 py-2 text-sm text-gray-900 text-center  whitespace-nowrap",
             },
         ],
         columnDefs: [
@@ -57,5 +57,6 @@ $(document).ready(function () {
                 },
             },
         ],
+        
     });
 });

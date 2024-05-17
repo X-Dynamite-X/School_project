@@ -19,6 +19,7 @@ Route::prefix('admin')->middleware(["role:admin", "auth"])->group(function () {
     Route::get('/user', [UserController::class, 'index'])->name('user_index');
     Route::get('/getUser', [UserController::class, 'getUser'])->name('getUser_index');
     Route::post('/user/store', [UserController::class, 'store'])->name('user_store');
+    Route::put('/user/update/{id}', [UserController::class, 'update'])->name("user_update");
 
     // Rout Subjects
     Route::get('/subject', [SubjectController::class, 'index'])->name('subject_index');

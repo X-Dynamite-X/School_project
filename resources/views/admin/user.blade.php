@@ -43,9 +43,8 @@
                 </tbody>
             </table>
         </div>
-        <div id="CreatUser" class="hidden fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
-            aria-modal="true">
-            @include('admin.model.user.createUser')
+        <div class="modle">
+            @include("admin.model.user.allModle")
         </div>
 
     </div>
@@ -55,6 +54,9 @@
     <script type="text/javascript" src="https://cdn.datatables.net/2.0.6/js/dataTables.js"></script>
     <script src="{{ asset('js/DataTables/userDataTable.js') }}"></script>
     <script src="{{ asset('js/user/createUser.js') }}"></script>
+    <script src="{{ asset('js/user/editUser.js') }}"></script>
+    <script src="{{ asset('js/user/infoUser.js') }}"></script>
+
     <script>
         $(document).ready(function() {
             $('#openCreatUser').click(function() {
