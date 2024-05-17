@@ -30,9 +30,9 @@ class UserController extends Controller
                 }
                 return $roles;
             })
-            ->rawColumns(['roles',"Action"])
+            ->rawColumns(['roles', "Action"])
 
-            ->addColumn("Action","admin.dataTables.user.actionUserTable")
+            ->addColumn("Action", "admin.dataTables.user.actionUserTable")
             ->toJson();
     }
 
@@ -51,51 +51,45 @@ class UserController extends Controller
                 'email.required' => 'The email field is required',
                 'email.unique' => 'The email field is already exist',
                 'password.confirmed' => 'The password confirmation does not match.',
-
             ]
         );
         if ($validator->fails()) {
             return response()->json(['error' => 'Validation failed', 'message' => $validator->errors()], 422);
         }
-
         $user = User::create([
             "name" => $request->input('name'),
             "email" => $request->input('email'),
             "password" => $request->input('password'),
         ]);
         return response()->json($user);
-
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
+        $user = User::find($id);
+        if (!$user) {
+            return response()->json(['error' => 'user not found'], 404);
+        }
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required|string|max:255',
+            ],
+            [
+                'name.required' => 'The name field is required',
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json(['error' => 'Validation failed', 'message' => $validator->errors()], 422);
+        }
+        $user->name = $request->input('name');
+        $user->save();
+        return response()->json($user);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(string $id)
     {
-        //
+
     }
 }
