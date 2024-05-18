@@ -18,10 +18,20 @@ class UserController extends Controller
         $users = User::all();
         return view("admin.user", ['users' => $users]);
     }
+    public function getUserData($id)
+    {
+        $user = User::find($id);
+        $roles = $user->getRoleNames();
+
+        if ($user) {
+            return response()->json([$user,$roles]);
+        } else {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+    }
     public function getUser()
     {
-        $users = User::all();
-
+        $users = User::query();
         return DataTables::of($users)
             ->addColumn('roles', function ($user) {
                 $roles = '';
@@ -31,8 +41,8 @@ class UserController extends Controller
                 return $roles;
             })
             ->rawColumns(['roles', "Action"])
-
-            ->addColumn("Action", "admin.dataTables.user.actionUserTable")
+            ->setRowId('trUser_{{$id}}')
+            ->addColumn("Action", "admin.dataTables.user.actionUserTable",)
             ->toJson();
     }
 
@@ -90,6 +100,13 @@ class UserController extends Controller
 
     public function destroy(string $id)
     {
+        $user = User::find($id);
 
+        if (!$user) {
+            return response()->json([], 404);
+        }
+
+        $user->delete();
+        return response()->json(["message"=>"Delete Successfuly"]);
     }
 }

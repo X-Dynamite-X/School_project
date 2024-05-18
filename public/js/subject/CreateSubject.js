@@ -27,33 +27,16 @@ $(document).ready(function () {
                         .replace(/\${fullMark}/g, subject.full_mark);
                     $(`#tbodySubject`).append(row);
                 });
-                $.get("/templates/infoSubjectModle.html", function (template) {
+                $.get("/templates/subject/infoSubjectModle.html", function (template) {
                     var infoSubject = template.replace(
                         /\${subjectId}/g,
                         subject.id
                     );
                     $(`.infoModle`).append(infoSubject);
                 });
-                $.get("/templates/editSubjectModle.html", function (template) {
-                    var editSubject = template
-                        .replace(/\${subjectName}/g, subject.name)
-                        .replace(/\${subjectCode}/g, subject.subject_code)
-                        .replace(/\${successMark}/g, subject.success_mark)
-                        .replace(/\${fullMark}/g, subject.full_mark)
-                        .replace(/\${csrf_token}/g, csrf_token)
-                        .replace(/\${subjectId}/g, subject.id);
-                    $(`.editModle`).append(editSubject);
-                });
-                $.get("/templates/deleteSubjectModle.html", function (template) {
-                    var editSubject = template
-                        .replace(/\${subjectName}/g, subject.name)
-                        .replace(/\${routSubjectDelete}/g, routSubjectDelete)
-                        .replace(/\${csrf_token}/g, csrf_token)
-                        .replace(/\${subjectId}/g, subject.id);
-                    $(`.editModle`).append(editSubject);
-                });
+                
 
-                $.get("/templates/createSubjectUserModle.html",
+                $.get("/templates/subject/createSubjectUserModle.html",
                     function (template) {
                         var createSubjectUser = template
                             .replace(/\${subjectName}/g, subject.name)

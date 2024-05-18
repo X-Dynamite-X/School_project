@@ -6,10 +6,6 @@
     var routSubjectUserEdit ="{{ route('subjectUser_update', ['', '']) }}";
     var csrf_token = "{{ csrf_token() }}";
 
-    console.log(routCreateSubjectUser);
-    console.log(routSubjectDelete);
-    console.log(routSubjectUserDelete);
-    console.log(routSubjectEdit);
-    console.log(routSubjectUserEdit);
+    
 
 </script>

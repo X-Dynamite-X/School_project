@@ -1,6 +1,12 @@
+// $(document).ready(function() {
+//     $('#subject_table').DataTable({
+//         "paging": true,
+//         "pageLength": 10
+//     });
+// });
 $(document).ready(function () {
-    var dataTable = $("#user_table").DataTable({
-        ajax: "getUser",
+    var dataTable = $("#subject_table").DataTable({
+        ajax: "getSubject",
         processing: true,
         serverSide: true,
         dataSrc: 'data',
@@ -14,11 +20,15 @@ $(document).ready(function () {
                 className: "px-4 py-2 text-sm text-gray-900 whitespace-nowrap",
             },
             {
-                data: "email",
+                data: "subject_code",
                 className: "px-4 py-2 text-sm text-gray-900 whitespace-nowrap",
             },
             {
-                data: "roles",
+                data: "success_mark",
+                className: "px-4 py-2 text-sm text-gray-900 whitespace-nowrap",
+            },
+            {
+                data: "full_mark",
                 className: "px-4 py-2 text-sm text-gray-900 whitespace-nowrap",
             },
             {
@@ -30,33 +40,40 @@ $(document).ready(function () {
             {
                 targets: 0,
                 createdCell: function (td, cellData, rowData, row, col) {
-                    $(td).attr("id", "userId_" + rowData.id);
+                    $(td).attr("id", "subjectId_" + rowData.id);
                 },
             },
             {
                 targets: 1,
                 createdCell: function (td, cellData, rowData, row, col) {
-                    $(td).attr("id", "userNameId_" + rowData.id);
+                    $(td).attr("id", "subjectNameId_" + rowData.id);
                 },
             },
             {
                 targets: 2,
                 createdCell: function (td, cellData, rowData, row, col) {
-                    $(td).attr("id", "userEmailId_" + rowData.id);
+                    $(td).attr("id", "subjectCodeId_" + rowData.id);
                 },
             },
             {
                 targets: 3,
                 createdCell: function (td, cellData, rowData, row, col) {
-                    $(td).attr("id", "userRoleId_" + rowData.id);
+                    $(td).attr("id", "subjectSuccessMarkId_" + rowData.id);
                 },
             },
             {
                 targets: 4,
                 createdCell: function (td, cellData, rowData, row, col) {
-                    $(td).attr("id", "userActionId_" + rowData.id);
+                    $(td).attr("id", "subjectFullMarkId_" + rowData.id);
                 },
             },
+            {
+                targets: 5,
+                createdCell: function (td, cellData, rowData, row, col) {
+                    $(td).attr("id", "subjectActionId_" + rowData.id);
+                },
+            },
+           
         ],
     });
 });

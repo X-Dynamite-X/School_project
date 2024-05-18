@@ -20,6 +20,26 @@ class SubjectController extends Controller
     }
 
 
+    public function getSubjectData($id)
+    {
+        $subject = Subject::find($id);
+        if ($subject) {
+            return response()->json($subject);
+        } else {
+            return response()->json(['error' => 'Subject not found'], 404);
+        }
+    }
+
+
+    public function getsubject()
+    {
+        $subjects = Subject::query();
+        return DataTables::of($subjects)
+            ->setRowId('trSubject_{{$id}}')
+            ->rawColumns([ "Action"])
+            ->addColumn("Action", "admin.dataTables.subject.actionSubjectTable",)
+            ->toJson();
+    }
 
     public function store(Request $request){
         $validator = Validator::make(
@@ -33,6 +53,8 @@ class SubjectController extends Controller
             [
                 'subject_input.required' => 'The subject field is required',
                 'subject_code.required' => 'The code field is required',
+                'subject_code.unique' => 'This code is already in use and cannot be duplicated.',
+
                 'success_mark.required' => 'The minimum mark field is required',
                 'full_mark.required' => 'The full mark field is required',
             ]
@@ -67,6 +89,7 @@ class SubjectController extends Controller
             [
                 'name.required' => 'The name field is required',
                 'subject_code.required' => 'The subject code field is required',
+                'subject_code.unique' => 'This code is already in use and cannot be duplicated.',
                 'success_mark.required' => 'The minimum mark field is required',
                 'full_mark.required' => 'The full mark field is required',
             ]

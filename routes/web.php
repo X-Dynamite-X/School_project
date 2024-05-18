@@ -18,11 +18,17 @@ Route::prefix('admin')->middleware(["role:admin", "auth"])->group(function () {
     // Rout Users
     Route::get('/user', [UserController::class, 'index'])->name('user_index');
     Route::get('/getUser', [UserController::class, 'getUser'])->name('getUser_index');
+    Route::get('/getUserData/{id}', [UserController::class,'getUserData'])->name("getUserData_ajax");
+
     Route::post('/user/store', [UserController::class, 'store'])->name('user_store');
     Route::put('/user/update/{id}', [UserController::class, 'update'])->name("user_update");
+    Route::delete("/user/destroy/{id}", [UserController::class, "destroy"])->name("user_destroy");
 
     // Rout Subjects
     Route::get('/subject', [SubjectController::class, 'index'])->name('subject_index');
+    Route::get('/getSubject', [SubjectController::class, 'getSubject'])->name('getUser_index');
+    Route::get('/getSubjectData/{id}', [SubjectController::class,'getSubjectData'])->name("getSubjectData_ajax");
+
     Route::post('/subject/store', [SubjectController::class, 'store'])->name("subject_store");
     Route::put('/subject/update/{id}', [SubjectController::class, 'update'])->name("subject_update");
     Route::delete("/subject/destroy/{id}", [SubjectController::class, "destroy"])->name("subject_destroy");

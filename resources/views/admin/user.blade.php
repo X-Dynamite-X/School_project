@@ -9,8 +9,6 @@
             Create
         </button>
         <div class="container ">
-
-
             <table id="user_table" class="w-full border-collapse border border-gray-300">
                 <thead>
                     <tr class="">
@@ -22,29 +20,12 @@
                     </tr>
                 </thead>
                 <tbody id = "tbodyUser" class="bg-white divide-y divide-gray-200">
-                    {{-- @foreach ($users as $user)
-                    <tr>
-                        <td class="px-4 py-2 text-sm text-gray-900 whitespace-nowrap">
-                            <img src="{{ asset('img/-5818810161089854385_120.jpg') }}" alt="User 1"
-                                class="inline-block h-8 w-8 rounded-full">
-                            {{ $user->name }}
-                        </td>
-                        <td class="px-4 py-2 text-sm text-gray-900 whitespace-nowrap">{{ $user->email }}</td>
-                        <td class="px-4 py-2 text-sm text-gray-900 whitespace-nowrap">
-                            <span class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
-                                @foreach ($user->getRoleNames() as $role)
-                                    {{ $role }}
-                                @endforeach
-                            </span>
-                        </td>
-                        <td class="px-4 py-2 text-sm text-gray-900 whitespace-nowrap">Active</td>
-                    </tr>
-                @endforeach --}}
                 </tbody>
             </table>
         </div>
         <div class="modle">
-            @include("admin.model.user.allModle")
+            @include('admin.model.user.allModle')
+
         </div>
 
     </div>
@@ -52,10 +33,16 @@
 @section('js')
     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/2.0.6/js/dataTables.js"></script>
+    @include("admin.model.user.routeUser")
     <script src="{{ asset('js/DataTables/userDataTable.js') }}"></script>
     <script src="{{ asset('js/user/createUser.js') }}"></script>
     <script src="{{ asset('js/user/editUser.js') }}"></script>
     <script src="{{ asset('js/user/infoUser.js') }}"></script>
+    <script src="{{ asset('js/user/delete.js') }}"></script>
+
+
+    {{-- <script src="{{ asset('js/DataTables/modleUser.js') }}"></script> --}}
+
 
     <script>
         $(document).ready(function() {

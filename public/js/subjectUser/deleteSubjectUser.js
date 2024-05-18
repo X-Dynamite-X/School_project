@@ -13,8 +13,7 @@ $(document).on("click", ".buttonDeleteSubjectUser", function () {
         },
         success: function (data) {
             console.log(data);
-            // var subjectId =data.user.subject_id
-            // var userId =data.user.user_id
+
 
             $("#trSubjectUser_" + subjectId + "_" + userId).remove();
             $("#InfoSubject" + subjectId).remove();

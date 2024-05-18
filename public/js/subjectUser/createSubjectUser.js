@@ -27,7 +27,7 @@ $(document).on("click", ".createSubjectUser", function () {
                     .replace(/\${userName}/g, users[index].name);
                     $(`#tbodySubjectUser${subjectId}`).append(row);
                 });
-                $.get("/templates/deleteSubjectUserModle.html", function(template) {
+                $.get("/templates/subject/deleteSubjectUserModle.html", function(template) {
                     var deleteModleSubjectUser = template
                     .replace(/\${subjectId}/g, subjectId)
                     .replace(/\${userId}/g, users[index].id)
@@ -38,7 +38,7 @@ $(document).on("click", ".createSubjectUser", function () {
                     $(`.deleteSubjectUserModle_${subjectId}`).append(deleteModleSubjectUser);
                 });
                 console.log(users[index]);
-                $.get("/templates/editSubjectUserModle.html", function(template) {
+                $.get("/templates/subject/editSubjectUserModle.html", function(template) {
                     var editModleSubjectUser = template
                     .replace(/\${subjectId}/g, subjectId)
                     .replace(/\${userId}/g, users[index].id)

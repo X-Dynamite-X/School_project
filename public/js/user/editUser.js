@@ -1,17 +1,55 @@
-
-function showEditModal(subjectId) {
-    hideAllModals(); // يخفي جميع الـ Modals أولا
-    $('#editUser_' + subjectId).removeClass('hidden');
+function showEditModal(id) {
+    $.ajax({
+        url: '/admin/getUserData/' + id,
+        type: 'GET',
+        success: function(response) {
+            console.log(response);
+            var user = response[0];
+            var roles = response[1];
+            console.log(user);
+            console.log(roles);
+            $.get("/templates/user/editUserModle.html", function (template) {
+                var infoSubject = template
+                    .replace(/\${id}/g, user.id)
+                    .replace(/\${name}/g, user.name)
+                    .replace(/\${email}/g, user.email)
+                    .replace(/\${routUserEdit}/g, routUserEdit)
+                    .replace(/\${csrf_token}/g, csrf_token);
+                $(`.editModle`).append(infoSubject);
+                roles.forEach(function (role) {
+                    var span = document.createElement("span");
+                    span.setAttribute(
+                        "id",
+                        `userRole_${role}_${user.id}`
+                    );
+                    span.setAttribute(
+                        "class",
+                        "bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded"
+                    );
+                    span.textContent = role;
+                    var parentElement = document.getElementById(`userRoles_${user.id}`);
+                    if (parentElement) {
+                        parentElement.appendChild(span);
+                    }
+                });
+            });
+            hideAllModals();
+        },
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+        }
+    });
 }
-
-function closeModalEditUser(subjectId) {
-    var modal = document.querySelector("#editUser_" + subjectId);
-    modal.classList.add('hidden');
+function closeModalEditUser(userId) {
+    var modal = document.querySelector("#editUser_" + userId);
+    modal.classList.add("hidden");
+    modal.remove();
 }
 
 function hideAllModals() {
-    // يجعل كل الـ Modals مخفية
     $('[id^="editUser_"]').addClass('hidden');
+    $('[id^="editUser_"]').remove();
+
 }
 
 $(document).on('click', '.editUserButton', function() {
@@ -26,14 +64,14 @@ $(document).on('click', '.editUserButton', function() {
             console.log(data);
             $("#errurMessageInputUserNameEdit_"+ data.id).text("");
             $("#errurMessageInputUserEmailEdit_"+ data.id).text("");
-
             $("#userNameId_" + data.id).text(data.name);
             $("#userEmailId_" + data.id).text(data.email);
+            // $("#userNameEdit_" + data.id).text(data.name);
+            // $("#userEmailEdit_" + data.id).text(data.email);
 
-            $("#userNameEdit_" + data.id).text(data.name);
-            $("#userEmailEdit_" + data.id).text(data.email);
+            $('[id^="editUser_"]').addClass('hidden');
+            $('[id^="editUser_"]').remove();
 
-            $('[id^="EditSubject"]').addClass('hidden');
 
         },
         error: function (data) {

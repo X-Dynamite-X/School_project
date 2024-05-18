@@ -32,4 +32,3 @@
         </button>
     </div>
 </div>
-{{-- @include("admin.dataTables.modleUserTable") --}}

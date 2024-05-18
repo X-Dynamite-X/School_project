@@ -1,4 +1,43 @@
 
+function showEditModal(id) {
+    $.ajax({
+        url: '/admin/getSubjectData/' + id,
+        type: 'GET',
+        success: function(subject) {
+            console.log(subject);
+            $.get("/templates/subject/editSubjectModle.html", function (template) {
+                var editSubject = template
+                    .replace(/\${subjectName}/g, subject.name)
+                    .replace(/\${subjectCode}/g, subject.subject_code)
+                    .replace(/\${successMark}/g, subject.success_mark)
+                    .replace(/\${fullMark}/g, subject.full_mark)
+                    .replace(/\${routSubjectEdit}/g, routSubjectEdit)
+
+                    .replace(/\${csrf_token}/g, csrf_token)
+                    .replace(/\${subjectId}/g, subject.id);
+                $(`.editModle`).append(editSubject);
+            });
+            hideAllModals();
+        },
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+        }
+    });
+}
+
+
+function closeModalEditSubject(subjectId) {
+    var modal = document.querySelector("#EditSubject" + subjectId);
+    modal.classList.add('hidden');
+    modal.remove();
+
+}
+
+function hideAllModals() {
+    // يجعل كل الـ Modals مخفية
+    $('[id^="EditSubject"]').addClass('hidden');
+    $('[id^="EditSubject"]').remove();
+}
 $(document).on('click', '.editSubjectButton', function() {
     var id = $(this).data("id");
     var form = $("#formEditSubject" + id);
@@ -12,15 +51,11 @@ $(document).on('click', '.editSubjectButton', function() {
             $("#errurMessageInputCodeSubjectEdit"+ data.id).text("");
             $("#errurMessageInputSuccessMarkEdit"+ data.id).text("");
             $("#errurMessageInputFullMarkEdit"+ data.id).text("");
-            $("#subjectName_" + data.id).text(data.subject);
-            $("#subjectCode_" + data.id).text(data.subject_code);
-            $("#subjectSuccessMark_" + data.id).text(data.success_mark);
-            $("#subjectFullMark_" + data.id).text(data.full_mark);
-            $("#subjectInfoSubjectName_" + data.id).text(data.subject);
-            $("#subjectInfoSubjectCode_" + data.id).text(data.subject_code);
-            $("#subjectInfoSuccessMark_" + data.id).text(data.success_mark);
-            $("#subjectInfoFullMark_" + data.id).text(data.full_mark);
-            $('[id^="EditSubject"]').addClass('hidden');
+            $("#subjectNameId_" + data.id).text(data.subject);
+            $("#subjectCodeId_" + data.id).text(data.subject_code);
+            $("#subjectSuccessMarkId_" + data.id).text(data.success_mark);
+            $("#subjectFullMarkId_" + data.id).text(data.full_mark);
+            $('#EditSubject'+data.id).remove();
 
         },
         error: function (data) {

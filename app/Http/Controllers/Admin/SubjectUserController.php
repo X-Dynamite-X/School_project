@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Subject;
 use App\Models\SubjectUser;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
