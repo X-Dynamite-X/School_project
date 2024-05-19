@@ -1,8 +1,41 @@
+function showDeleteSubjectUserModal(subjectId,userId) {
+    $.ajax({
+        url: '/admin/getSubjectUserData/' + subjectId+'/'+userId,
+        type: 'GET',
+        success: function(data) {
+            console.log(user);
+            var subject = data[0];
+            var user = data[1];
+            $.get("/templates/subjectUser/deleteSubjectUserModle.html", function(template) {
+                var deleteModleSubjectUser = template
+                .replace(/\${subjectId}/g, subject.id)
+                .replace(/\${userId}/g, user.id)
+                .replace(/\${subject_name}/g, subject.name)
+                .replace(/\${csrf_token}/g, csrf_token)
+                .replace(/\${userName}/g, user.name)
+                .replace(/\${routSubjectUserDelete}/g,routSubjectUserDelete);
+                $(`.deleteModleSubjectUser`).append(deleteModleSubjectUser);
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+        }
+    });
+}
+function closeModalDeleteSubjectUser(subjectId,userId) {
+    $(`DeleteSubjectUser_${subjectId}_${userId}`).addClass('hidden');
+    $(`DeleteSubjectUser_${subjectId}_${userId}`).remove();
+    $('[id^="DeleteSubjectUser_"]').remove();
+
+}
+function hideAllModals() {
+    $('[id^="DeleteSubjectUser_"]').addClass('hidden');
+    $('[id^="DeleteSubjectUser_"]').remove();
+}
 $(document).on("click", ".buttonDeleteSubjectUser", function () {
     var subjectId = $(this).data("subject_id");
     var userId = $(this).data("user_id");
     var userName = $(this).data("user_name");
-
     var form = $("#formDeleteSubjectUser_" + subjectId + "_" + userId);
     $.ajax({
         type: "Delete",
@@ -13,22 +46,9 @@ $(document).on("click", ".buttonDeleteSubjectUser", function () {
         },
         success: function (data) {
             console.log(data);
-
-
-            $("#trSubjectUser_" + subjectId + "_" + userId).remove();
-            $("#InfoSubject" + subjectId).remove();
-            $("#EditSubjectUser_" + subjectId + "_" + userId).remove();
-            $("#DeleteSubjectUser_" + subjectId + "_" + userId).remove();
-
-
-            var option_user = `
-            <option id="optionUserNameInSubjectUser_${subjectId}_${userId}"
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            required value="${userId}"> ${userName}
-        </option>
-        `;
-            $("#userNameSubjectUsers_" + subjectId).append(option_user);
             $('[id^="DeleteSubjectUser_"]').addClass("hidden");
+            $('[id^="DeleteSubjectUser_"]').remove();
+            showInfoModal(subjectId)
         },
         error: function (data) {
             console.log("Error:", data);

@@ -15,6 +15,39 @@ class SubjectUserController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function getSubjectUser($id)
+    {
+        $subject = Subject::findOrFail($id);
+        $subjectUsers = $subject->users->map(function ($user) use ($subject) {
+            return [
+                'id' => $user->id,
+                'subject_name' => $subject->name,
+                'user_name' => $user->name,
+                'mark' => $user->pivot->mark // افتراض أن هناك حقل 'mark' في pivot table
+            ];
+        });
+
+        return response()->json(['subjectUsers' => $subjectUsers]);
+    }
+    public function getSubjectUserData($id)
+    {
+        $subject = Subject::findOrFail($id);
+        $subjectUser = $subject->users;
+
+        $usersAll = User::all();
+        $users = [];
+        foreach ($usersAll as $user) {
+            if (!$subjectUser->contains($user)) {
+                $users[] = $user;
+            }
+        }
+        if ($subjectUser) {
+            return response()->json([$subjectUser,$users,$subject]);
+        } else {
+            return response()->json(['error' => 'User not found in the subject'], 404);
+        }
+    }
+
 
     public function store(Request $request)
     {
@@ -48,8 +81,25 @@ class SubjectUserController extends Controller
             }
         }
         $users = User::find($request->user_ids);
-        return response()->json(["message" => "Doneeeeeeeee", "users_id" => $request->user_ids,"users"=>$users]);
+        return response()->json(["message" => "Doneeeeeeeee", "users_id" => $request->user_ids, "users" => $users]);
     }
+
+    public function getSubjectUserDataInSubject($subjectId,$userId)
+    {
+        $mark = SubjectUser::where('subject_id', $subjectId)
+        ->where('user_id', $userId)
+        ->first()->mark;
+
+        $subject = Subject::findOrFail($subjectId);
+        $subjectUser = $subject->users->find($userId);
+
+        if ($subjectUser) {
+            return response()->json([$subject,$subjectUser,$mark]);
+        } else {
+            return response()->json(['error' => 'User not found in the subject'], 404);
+        }
+    }
+
 
     public function update(Request $request)
     {
@@ -85,7 +135,7 @@ class SubjectUserController extends Controller
         if ($subjectUser) {
             $subjectUser->delete();
 
-            return response()->json(["message" => "Done Delete ","user"=>$subjectUser]);
+            return response()->json(["message" => "Done Delete ", "user" => $subjectUser]);
         } else {
             return response()->json(["message" => "this user is not found in the subject"]);
         }

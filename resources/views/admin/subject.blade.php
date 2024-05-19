@@ -23,10 +23,7 @@
             <tbody id="tbodySubject" class="bg-white divide-y divide-gray-200">
             </tbody>
         </table>
-        <div id="CreatSubject" class="hidden fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title"
-            role="dialog" aria-modal="true">
-            @include('admin.model.subjects.createSubject')
-        </div>
+        
         <div class="modl">
             @include('admin.model.subjects.allModle')
         </div>
@@ -35,24 +32,16 @@
         <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/2.0.6/js/dataTables.js"></script>
         <script src="{{ asset('js/DataTables/subjectDataTable.js') }}"></script>
-        {{-- @foreach ($subjects as $subject)
-            <script>
-                $(document).ready(function() {
-                    $('#subjectUserTable_{{ $subject->id }}').DataTable({
-                        "paging": true,
-                        "pageLength": 10
-                    });
-                });
-            </script>
-        @endforeach --}}
         <script src="{{ asset('js/buttonModleAjax/SubjectcreateCloseModle.js') }}"></script>
         <script src="{{ asset('js/subject/CreateSubject.js') }}"></script>
         <script src="{{ asset('js/subject/EditSubject.js') }}"></script>
         <script src="{{ asset('js/subject/DeleteSubject.js') }}"></script>
-        <script src="{{ asset('js/subject/createSubjectUser.js') }}"></script>
-        <script src="{{ asset('js/subject/editSubjectUser.js') }}"></script>
-        <script src="{{ asset('js/subject/deleteSubjectUser.js') }}"></script>
         <script src="{{ asset('js/subject/infoSubject.js') }}"></script>
+        <script src="{{ asset('js/DataTables/subjectUserDataTable.js') }}"></script>
+        <script src="{{ asset('js/subjectUser/createSubjectUser.js') }}"></script>
+        <script src="{{ asset('js/subjectUser/editSubjectUser.js') }}"></script>
+
+        <script src="{{ asset('js/subjectUser/deleteSubjectUser.js') }}"></script>
 
         @include('admin.model.subjects.routeSubject')
     @endsection

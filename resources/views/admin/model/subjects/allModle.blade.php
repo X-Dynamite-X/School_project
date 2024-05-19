@@ -58,3 +58,7 @@
         </div>
     @endforeach --}}
 </div>
+<div id="CreatSubject" class="hidden fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
+    aria-modal="true">
+    @include('admin.model.subjects.createSubject')
+</div>

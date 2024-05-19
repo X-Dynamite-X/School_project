@@ -1,3 +1,21 @@
+$(document).ready(function() {
+    $('#openCreatUser').click(function() {
+        $('#CreatUser').removeClass('hidden');
+    });
+
+    $('#CreatUser').on('click', function(event) {
+        if (event.target === this) {
+            $(this).addClass('hidden');
+        }
+    });
+});
+
+function closeModal() {
+    var modal = document.querySelector('#CreatUser');
+    modal.classList.add('hidden');
+}
+
+
 $(document).ready(function () {
     var form = $("#formUser");
     $("#createUser").click(function () {
