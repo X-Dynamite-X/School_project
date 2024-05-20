@@ -3,7 +3,6 @@ function showDeleteSubjectUserModal(subjectId,userId) {
         url: '/admin/getSubjectUserData/' + subjectId+'/'+userId,
         type: 'GET',
         success: function(data) {
-            console.log(user);
             var subject = data[0];
             var user = data[1];
             $.get("/templates/subjectUser/deleteSubjectUserModle.html", function(template) {
@@ -45,13 +44,13 @@ $(document).on("click", ".buttonDeleteSubjectUser", function () {
             _method: "DELETE",
         },
         success: function (data) {
-            console.log(data);
             $('[id^="DeleteSubjectUser_"]').addClass("hidden");
             $('[id^="DeleteSubjectUser_"]').remove();
             showInfoModal(subjectId)
         },
         error: function (data) {
-            console.log("Error:", data);
+            console.log(data);
+
         },
     });
 });

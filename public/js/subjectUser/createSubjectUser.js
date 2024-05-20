@@ -59,7 +59,6 @@ $(document).on("click", ".createSubjectUser", function () {
             $("#errurMessageInputSubjectsNameInSubjectUser_" + subjectId).text("");
             $("#errurMessageInputUserNameInSubjectUser_" + subjectId).text("");
             $("#errurMessageInputUserNameInSubjectUsers_" + subjectId).text("");
-            console.log(data.users);
             users = data.users;
             $('[id^="CreateSubjectUser"]').remove();
             showInfoModal(subjectId)

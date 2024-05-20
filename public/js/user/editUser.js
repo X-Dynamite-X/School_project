@@ -3,11 +3,9 @@ function showEditModal(id) {
         url: '/admin/getUserData/' + id,
         type: 'GET',
         success: function(response) {
-            console.log(response);
             var user = response[0];
             var roles = response[1];
-            console.log(user);
-            console.log(roles);
+
             $.get("/templates/user/editUserModle.html", function (template) {
                 var infoSubject = template
                     .replace(/\${id}/g, user.id)
@@ -61,7 +59,6 @@ $(document).on('click', '.editUserButton', function() {
         url: form.attr("action"),
         data: formData,
         success: function (data) {
-            console.log(data);
             $("#errurMessageInputUserNameEdit_"+ data.id).text("");
             $("#errurMessageInputUserEmailEdit_"+ data.id).text("");
             $("#userNameId_" + data.id).text(data.name);

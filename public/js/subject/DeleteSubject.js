@@ -4,7 +4,6 @@ function showDeleteModal(id) {
         url: '/admin/getSubjectData/' + id,
         type: 'GET',
         success: function(subject) {
-            console.log(subject);
             $.get("/templates/subject/deleteSubjectModle.html", function (template) {
                 var deleteSubject = template
                     .replace(/\${subjectName}/g, subject.name)
@@ -52,8 +51,7 @@ $(document).on("click", ".buttonDeleteSubject", function () {
             id: id,
         },
         success: function (data) {
-            console.log("Success:", data);
-            console.log('#deleteSubjectUserModle_' + id);
+
             $("#trSubject_" + id).remove();
             $('.deleteSubjectUserModle_' + id).remove();
             $('.editSubjectUserModle_'+ id).remove();

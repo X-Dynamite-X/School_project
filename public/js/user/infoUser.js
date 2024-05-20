@@ -3,15 +3,9 @@ function showInfoModal(id) {
         url: '/admin/getUserData/' + id,
         type: 'GET',
         success: function(response) {
-            console.log(response);
             var user = response[0];
             var roles = response[1];
             var permissions = response[2];
-
-            console.log(user);
-            console.log(roles);
-            console.log(permissions);
-
             $.get("/templates/user/infoUserModle.html", function (template) {
                 var infoSubject = template
                     .replace(/\${id}/g, user.id)

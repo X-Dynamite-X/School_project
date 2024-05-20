@@ -3,11 +3,8 @@ function showDeleteModal(id) {
         url: '/admin/getUserData/' + id,
         type: 'GET',
         success: function(response) {
-            console.log(response);
             var user = response[0];
             var roles = response[1];
-            console.log(user);
-            console.log(roles);
             $.get("/templates/user/deleteUserModle.html", function (template) {
                 var infoUser = template
                     .replace(/\${id}/g, user.id)
@@ -46,7 +43,6 @@ $(document).on('click', '.buttonDeleteUser', function() {
         url: form.attr("action"),
         data: formData,
         success: function (data) {
-            console.log(data);
             $("#errurMessageInputUserNameEdit_"+ data.id).text("");
             $("#userNameId_" + data.id).text(data.name);
             $('[id^="DeleteUser_"]').addClass('hidden');

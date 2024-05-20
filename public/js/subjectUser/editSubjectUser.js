@@ -4,7 +4,6 @@ function showEditSubjectUserModal(subjectId,userId) {
         url: '/admin/getSubjectUserData/' + subjectId+'/'+userId,
         type: 'GET',
         success: function(data) {
-            console.log(user);
             var subject = data[0];
             var user = data[1];
             var mark =  data[2];
@@ -43,7 +42,6 @@ $(document).on('click', '.editSubjectUserButton', function() {
         data: formData,
         success: function (data) {
             $("#errurMessageInputSubjectUserMarkEdit_"+ subjectId+"_"+subjectUserId).text("");
-            console.log(data);
             showInfoModal(subjectId)
         },
         error: function (data) {

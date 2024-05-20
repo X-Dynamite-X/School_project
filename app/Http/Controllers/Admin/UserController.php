@@ -23,8 +23,6 @@ class UserController extends Controller
         $user = User::find($id);
         $roles = $user->getRoleNames();
         $permission = $user->getPermissionNames();
-
-
         if ($user) {
             return response()->json([$user,$roles,$permission]);
         } else {
@@ -108,6 +106,7 @@ class UserController extends Controller
             return response()->json(['error' => 'Validation failed', 'message' => $validator->errors()], 422);
         }
         $user->name = $request->input('name');
+
         $user->save();
         return response()->json($user);
     }

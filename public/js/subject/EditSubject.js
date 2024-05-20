@@ -4,7 +4,6 @@ function showEditModal(id) {
         url: '/admin/getSubjectData/' + id,
         type: 'GET',
         success: function(subject) {
-            console.log(subject);
             $.get("/templates/subject/editSubjectModle.html", function (template) {
                 var editSubject = template
                     .replace(/\${subjectName}/g, subject.name)

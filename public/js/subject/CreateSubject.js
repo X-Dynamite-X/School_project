@@ -20,7 +20,6 @@ $(document).ready(function () {
     var form = $("#formSubject");
     $("#createSubject").click(function () {
         var formData = form.serialize();
-        console.log(formData);
         $.ajax({
             type: form.attr("method"),
             url: form.attr("action"),
@@ -28,8 +27,7 @@ $(document).ready(function () {
             success: function (data) {
                 var subject = data[0];
                 var users = data[1];
-                console.log(subject);
-                console.log(users);
+
 
                 $("#errurMessageInputSubject").text("");
                 $("#errurMessageInputCodeSubject").text("");
