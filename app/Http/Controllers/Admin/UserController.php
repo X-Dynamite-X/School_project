@@ -22,9 +22,11 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $roles = $user->getRoleNames();
+        $permission = $user->getPermissionNames();
+
 
         if ($user) {
-            return response()->json([$user,$roles]);
+            return response()->json([$user,$roles,$permission]);
         } else {
             return response()->json(['error' => 'User not found'], 404);
         }
@@ -41,11 +43,17 @@ class UserController extends Controller
                 return $roles;
             })
             ->addColumn('actev', function ($user) {
-                $roles = '';
-                foreach ($user->getRoleNames() as $role) {
-                    $roles .= ' <span class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">' . $role . '</span><br>';
+                $permission = '';
+                foreach ($user->getPermissionNames() as $permission) {
+                    if("isActev"==$permission){
+                        $permission = ' <span class="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">' . $permission . '</span>';
+                    }
+                    else{
+                        $permission = ' <span class="bg-red-400 text-white text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">' . $permission . '</span>';
+
+                    }
                 }
-                return $roles;
+                return $permission;
             })
             ->rawColumns(["actev",'roles', "Action"])
             ->setRowId('trUser_{{$id}}')
