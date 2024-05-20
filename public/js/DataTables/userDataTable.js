@@ -18,9 +18,14 @@ $(document).ready(function () {
                 className: "px-4 py-2 text-sm text-gray-900 whitespace-nowrap",
             },
             {
+                data: "Actev",
+                className: "px-4 py-2 text-sm text-gray-900 text-center  whitespace-nowrap",
+            },
+            {
                 data: "roles",
                 className: "px-4 py-2 text-sm text-gray-900 whitespace-nowrap",
             },
+
             {
                 data: "Action",
                 className: "px-4 py-2 text-sm text-gray-900 text-center  whitespace-nowrap",
@@ -48,11 +53,17 @@ $(document).ready(function () {
             {
                 targets: 3,
                 createdCell: function (td, cellData, rowData, row, col) {
-                    $(td).attr("id", "userRoleId_" + rowData.id);
+                    $(td).attr("id", "userActevId_" + rowData.id);
                 },
             },
             {
                 targets: 4,
+                createdCell: function (td, cellData, rowData, row, col) {
+                    $(td).attr("id", "userRoleId_" + rowData.id);
+                },
+            },
+            {
+                targets: 5,
                 createdCell: function (td, cellData, rowData, row, col) {
                     $(td).attr("id", "userActionId_" + rowData.id);
                 },

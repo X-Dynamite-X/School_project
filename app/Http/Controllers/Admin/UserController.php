@@ -40,7 +40,14 @@ class UserController extends Controller
                 }
                 return $roles;
             })
-            ->rawColumns(['roles', "Action"])
+            ->addColumn('actev', function ($user) {
+                $roles = '';
+                foreach ($user->getRoleNames() as $role) {
+                    $roles .= ' <span class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">' . $role . '</span><br>';
+                }
+                return $roles;
+            })
+            ->rawColumns(["actev",'roles', "Action"])
             ->setRowId('trUser_{{$id}}')
             ->addColumn("Action", "admin.dataTables.user.actionUserTable",)
             ->toJson();

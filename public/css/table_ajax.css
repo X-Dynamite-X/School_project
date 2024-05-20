@@ -50,8 +50,8 @@ div.dt-container div.dt-layout-cell.dt-end {
     /* شكل الزوايا */
     border: 1px solid #ccc;
     /* حدود الحقل */
-    background-color: #27293d;
-    color: #fff;
+    background-color: #f3f4f6;
+    color: #000;
 }
 div.dt-container div.dt-layout-cell.dt-start {
     text-align: left;
@@ -73,17 +73,17 @@ div.dt-container .dt-paging .dt-paging-button {
     width: auto;
     padding: 5px;
     border-radius: 5px;
-    background-color: #27293d;
-    color: #fff;
+    background-color: #f3f4f6;
+    color: #000;
     border: 1px solid #ccc;
 }
 div.dt-container .dt-paging .dt-paging-button.current {
-    background: linear-gradient(to bottom, #585858 0%, #111 100%);
-    color: #ffffff;
+    background: linear-gradient(to bottom, #fff 0%, #ddd 100%);
+    color: #000;
 }
 div.dt-container .dt-paging .dt-paging-button {
-    background-color: #27293d;
-    color: #ffffff;
+    background-color: #f3f4f6;
+    color: #000;
 }
 
 .dataTables_wrapper .dataTables_scroll {

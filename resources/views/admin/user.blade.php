@@ -15,6 +15,7 @@
                         <th class="px-4 py-2 text-sm font-semibold text-gray-900 bg-gray-100">id</th>
                         <th class="px-4 py-2 text-sm font-semibold text-gray-900 bg-gray-100">Name</th>
                         <th class="px-4 py-2 text-sm font-semibold text-gray-900 bg-gray-100">Email</th>
+                        <th class="px-4 py-2 text-sm font-semibold text-gray-900 bg-gray-100">Actev</th>
                         <th class="px-4 py-2 text-sm font-semibold text-gray-900 bg-gray-100">Role</th>
                         <th class="px-4 py-2 text-sm font-semibold text-gray-900 bg-gray-100">Action</th>
                     </tr>
