@@ -23,7 +23,7 @@
             <tbody id="tbodySubject" class="bg-white divide-y divide-gray-200">
             </tbody>
         </table>
-        
+
         <div class="modl">
             @include('admin.model.subjects.allModle')
         </div>
@@ -32,7 +32,6 @@
         <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/2.0.6/js/dataTables.js"></script>
         <script src="{{ asset('js/DataTables/subjectDataTable.js') }}"></script>
-        <script src="{{ asset('js/buttonModleAjax/SubjectcreateCloseModle.js') }}"></script>
         <script src="{{ asset('js/subject/CreateSubject.js') }}"></script>
         <script src="{{ asset('js/subject/EditSubject.js') }}"></script>
         <script src="{{ asset('js/subject/DeleteSubject.js') }}"></script>
