@@ -6,10 +6,15 @@ function showInfoModal(id) {
             var user = response[0];
             var roles = response[1];
             var permissions = response[2];
+            console.log(user.image)
+            var image = `imageProfile/${user.image}`;
             $.get("/templates/user/infoUserModle.html", function (template) {
                 var infoSubject = template
                     .replace(/\${id}/g, user.id)
                     .replace(/\${name}/g, user.name)
+
+
+                    .replace(/\${imagePath}/g, "../../"+image)
                     .replace(/\${email}/g, user.email);
                 $(`.infoModle`).append(infoSubject);
                 roles.forEach(function (role) {
@@ -22,7 +27,6 @@ function showInfoModal(id) {
                         "class",
                         "bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded"
                     );
-
                     span.textContent = role;
                     var parentElement = document.getElementById(`userRoles_${user.id}`);
                     if (parentElement) {

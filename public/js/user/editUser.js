@@ -5,12 +5,25 @@ function showEditModal(id) {
         success: function(response) {
             var user = response[0];
             var roles = response[1];
+            var permissions = response[2];
+            var isActev = permissions[0];
+            var image = `imageProfile/${user.image}`;
 
             $.get("/templates/user/editUserModle.html", function (template) {
+                var checked=""
+                style="bg-red-400 text-white"
+                if(isActev =="isActev"){
+                    checked="checked"
+                    style="bg-green-100 text-green-800"
+                }
                 var infoSubject = template
                     .replace(/\${id}/g, user.id)
                     .replace(/\${name}/g, user.name)
                     .replace(/\${email}/g, user.email)
+                    .replace(/\${isActev}/g, isActev)
+                    .replace(/\${checked}/g, checked)
+                    .replace(/\${style}/g, style)
+                    .replace(/\${imagePath}/g, "../../"+image)
                     .replace(/\${routUserEdit}/g, routUserEdit)
                     .replace(/\${csrf_token}/g, csrf_token);
                 $(`.editModle`).append(infoSubject);
@@ -52,35 +65,57 @@ function hideAllModals() {
 
 $(document).on('click', '.editUserButton', function() {
     var id = $(this).data("id");
-    var form = $("#formEditUser_" + id);
-    var formData = form.serialize();
+    var form = $("#formEditUser_" + id)[0]; // Fetch the form element itself
+    var formData = new FormData(form);
+     // Add image field to FormData if it exists
+     var imageFile = $("#editimgUesrProfile_" + id)[0].files[0];
+     if(imageFile) {
+         formData.append("image", imageFile);
+     }
     $.ajax({
-        type: form.attr("method"),
-        url: form.attr("action"),
+        type: form.method,
+        url: form.action,
         data: formData,
+        processData: false, // Don't process data (required with FormData)
+        contentType: false,
         success: function (data) {
-            $("#errurMessageInputUserNameEdit_"+ data.id).text("");
-            $("#errurMessageInputUserEmailEdit_"+ data.id).text("");
-            $("#userNameId_" + data.id).text(data.name);
-            $("#userEmailId_" + data.id).text(data.email);
-            // $("#userNameEdit_" + data.id).text(data.name);
-            // $("#userEmailEdit_" + data.id).text(data.email);
+            console.log(data);
+            var user = data[0];
+            var permission = data[1];
 
+            $("#errurMessageInputUserNameEdit_"+ user.id).text("");
+            $("#errurMessageInputUserEmailEdit_"+ user.id).text("");
+            $("#userNameId_" + user.id).text(user.name);
+            $("#userEmailId_" + user.id).text(user.email);
+            if (permission == "isActev") {
+                $("#userActevSpanId_" + user.id).text(permission).addClass("bg-green-100 text-green-800").removeClass("bg-red-400 text-white");
+            }
+            else{
+                $("#userActevSpanId_" + user.id).text(permission).addClass("bg-red-400 text-white").removeClass("bg-green-100 text-green-800");;
+
+            }
             $('[id^="editUser_"]').addClass('hidden');
             $('[id^="editUser_"]').remove();
-
-
         },
         error: function (data) {
             var errur = data.responseJSON.message;
             console.log(errur);
             $("#errurMessageInputUserNameEdit_"+ id).text("");
             $("#errurMessageInputUserEmailEdit_"+ id).text("");
-
-
             $("#errurMessageInputUserNameEdit_"+ id).text(errur.name);
             $("#errurMessageInputUserEmailEdit_"+ id).text(errur.email);
 
         },
     });
 });
+function previewImage(input,id) {
+    var file = input.files[0];
+    console.log(file);
+    if (file) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#imageUser_'+id).attr('src', e.target.result);
+        };
+        reader.readAsDataURL(file);
+    }
+}

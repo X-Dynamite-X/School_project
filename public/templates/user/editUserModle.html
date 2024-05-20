@@ -1,5 +1,5 @@
-<div id="editUser_${id}" class="fixed z-10 inset-0 overflow-y-auto " aria-labelledby="modal-title"
-    role="dialog" aria-modal="true">
+<div id="editUser_${id}" class="fixed z-10 inset-0 overflow-y-auto " aria-labelledby="modal-title" role="dialog"
+    aria-modal="true">
     <div class="relative z-10" aria-labelledby="modleEditUser_${id}" role="dialog" aria-modal="true">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
         <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -12,33 +12,61 @@
                                 <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Edit User
                                 </h3>
                                 <div class="mt-2 ">
-                                    <form action="${routUserEdit}/${id}"
-                                        id="formEditUser_${id}" class="formEditUser${id}"
-                                        method="post">
+                                    <form action="${routUserEdit}/${id}" id="formEditUser_${id}" enctype="multipart/form-data"
+                                        class="formEditUser${id}" method="post">
                                         <input type="hidden" name="_token" value="${csrf_token}" autocomplete="off">
                                         <input type="hidden" name="_method" value="PUT">
-                                        <div class="mb-4">
-                                            <label for="editUserName_${id}"
-                                                class="block text-gray-700 text-sm font-bold mb-2">User
-                                                Name</label>
-                                            <input type="text" name="name" id="editUserName_${id}"
-                                                value="${name}"
-                                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                                required>
-                                            <span id="errurMessageInputUsernameEdit_${id}"
-                                                class="sm:text-red-500 "> </span>
+                                        <div class="max-w-md mx-auto bg-white rounded-lg shadow-md p-4">
+                                                <div class="px-4 py-6 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-0">
+                                                    <label for="editimgUesrProfile_${id}" class="w-100">
+                                                    <dt class="text-sm font-medium leading-6 text-gray-900"></dt>
+                                                    <dd class="mt-1 text-sm leading-6 text-gray-700  sm:mt-0 ">
+                                                        <img class="rounded-full" id="imageUser_${id}"
+                                                            src="${imagePath}"
+                                                            alt="">
+                                                            <input type="file" id="editimgUesrProfile_${id}" class="hidden" onchange="previewImage(this,${id})"  name="image">
+                                                    </dd>
+                                                </label>
+                                                </div>
+                                            <div class="mb-4">
+                                                <label for="editUserName_${id}"
+                                                    class="block text-gray-700 text-sm font-bold mb-2">User
+                                                    Name</label>
+                                                <input type="text" name="name" id="editUserName_${id}"
+                                                    value="${name}"
+                                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                                    required>
+                                                <span id="errurMessageInputUsernameEdit_${id}" class="sm:text-red-500 ">
+                                                </span>
+                                            </div>
+                                            <div class="mb-4">
+                                                <label for="editUserEmail_${id}"
+                                                    class="block text-gray-700  text-sm font-bold mb-2">User Email
+                                                </label>
+                                                <input type="text"disabled name="email" id="editUserEmail_${id}"
+                                                    value="${email}"
+                                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                                    required>
+                                                <span class="sm:text-red-500 "
+                                                    id="errurMessageInputUserEmailEdit_${id}">
+                                                </span>
+                                            </div>
+                                            <div class="mb-4">
+                                                <ul>
+                                                    <label for="editUserisActev_${id}">
+                                                        <li class="flex items-center justify-between py-2 border-b">
+                                                            <span for="editUserisActev_${id}"
+                                                                class="${style} text-x font-semibold mr-2 px-2.5 py-0.5 rounded">${isActev}
+                                                            </span>
+                                                            <input type="checkbox" id="editUserisActev_${id}"
+                                                                name="actev" class="form-checkbox h-5 w-5" ${checked}>
+                                                        </li>
+                                                    </label>
+                                                </ul>
+                                            </div>
+                                            <span class="sm:text-red-500 " id="errurMessageInputUserisActevEdit_${id}">
+                                            </span>
                                         </div>
-                                        <div class="mb-4">
-                                            <label for="editUserEmail_${id}"
-                                                class="block text-gray-700  text-sm font-bold mb-2">User Email </label>
-                                            <input type="text"disabled name="email"
-                                                id="editUserEmail_${id}" value="${email}"
-                                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                                required>
-                                            <span class="sm:text-red-500 "
-                                                id="errurMessageInputUserEmailEdit_${id}"> </span>
-                                        </div>
-
                                 </div>
                             </div>
                         </div>

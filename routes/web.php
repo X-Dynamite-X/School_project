@@ -12,9 +12,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware("permission:isActev");
 
-Route::prefix('admin')->middleware(["role:admin", "auth"])->group(function () {
+Route::prefix('admin')->middleware(["role:admin", "auth",])->group(function () {
     // Rout Users
     Route::get('/user', [UserController::class, 'index'])->name('user_index');
     Route::get('/getUser', [UserController::class, 'getUser'])->name('getUser_index');

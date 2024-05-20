@@ -19,6 +19,7 @@ class UserSeeder extends Seeder
                 'name' => 'dynamite',
                 'email' => 'dynamite@gmail.com',
                 'password' => Hash::make('123'),
+                // "userImage" => 'imageProfile/me.jpg',
             ],    [
                 'name' => 'madara',
                 'email' => 'madara@gmail.com',

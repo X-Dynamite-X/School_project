@@ -44,10 +44,10 @@ class UserController extends Controller
                 $permission = '';
                 foreach ($user->getPermissionNames() as $permission) {
                     if("isActev"==$permission){
-                        $permission = ' <span class="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">' . $permission . '</span>';
+                        $permission = ' <span id="userActevSpanId_'.$user->id.'" class="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">' . $permission . '</span>';
                     }
                     else{
-                        $permission = ' <span class="bg-red-400 text-white text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">' . $permission . '</span>';
+                        $permission = ' <span id="userActevSpanId_'.$user->id.'" class="bg-red-400 text-white text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">' . $permission . '</span>';
 
                     }
                 }
@@ -89,26 +89,48 @@ class UserController extends Controller
 
     public function update(Request $request, string $id)
     {
+        // dd([$request,$request->image,$request->hasFile("image")]);
+
         $user = User::find($id);
         if (!$user) {
             return response()->json(['error' => 'user not found'], 404);
         }
+
+
         $validator = Validator::make(
             $request->all(),
             [
                 'name' => 'required|string|max:255',
+                'image' => 'image|mimes:png,jpg,jpeg,gif,svg|max:2048'
             ],
             [
                 'name.required' => 'The name field is required',
             ]
         );
+
         if ($validator->fails()) {
             return response()->json(['error' => 'Validation failed', 'message' => $validator->errors()], 422);
         }
+        if ($request->hasFile('image')) {
+            $image_name = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('imageProfile/'), $image_name);
+            $user->image = $image_name;
+        }
+        $permission = "";
+        if($request->actev == "on"){
+            $user->revokePermissionTo("notActev");
+            $user->givePermissionTo("isActev");
+            $permission = "isActev";
+        }
+        else{
+            $user->revokePermissionTo("isActev");
+            $user->givePermissionTo("notActev");
+            $permission = "notActev";
+        }
         $user->name = $request->input('name');
-
         $user->save();
-        return response()->json($user);
+
+        return response()->json([$user,$permission]);
     }
 
 
