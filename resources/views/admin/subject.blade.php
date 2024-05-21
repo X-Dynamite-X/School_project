@@ -39,7 +39,6 @@
         <script src="{{ asset('js/DataTables/subjectUserDataTable.js') }}"></script>
         <script src="{{ asset('js/subjectUser/createSubjectUser.js') }}"></script>
         <script src="{{ asset('js/subjectUser/editSubjectUser.js') }}"></script>
-
         <script src="{{ asset('js/subjectUser/deleteSubjectUser.js') }}"></script>
 
         @include('admin.model.subjects.routeSubject')

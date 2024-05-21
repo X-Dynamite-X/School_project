@@ -8,7 +8,6 @@ function showEditModal(id) {
             var permissions = response[2];
             var isActev = permissions[0];
             var image = `imageProfile/${user.image}`;
-
             $.get("/templates/user/editUserModle.html", function (template) {
                 var checked=""
                 style="bg-red-400 text-white"
@@ -85,6 +84,8 @@ $(document).on('click', '.editUserButton', function() {
 
             $("#errurMessageInputUserNameEdit_"+ user.id).text("");
             $("#errurMessageInputUserEmailEdit_"+ user.id).text("");
+            $("#errurMessageInputImageEdit_"+ id).text("");
+
             $("#userNameId_" + user.id).text(user.name);
             $("#userEmailId_" + user.id).text(user.email);
             if (permission == "isActev") {
@@ -99,11 +100,20 @@ $(document).on('click', '.editUserButton', function() {
         },
         error: function (data) {
             var errur = data.responseJSON.message;
+            console.log(data);
+            console.log(data.statusText);
             console.log(errur);
             $("#errurMessageInputUserNameEdit_"+ id).text("");
             $("#errurMessageInputUserEmailEdit_"+ id).text("");
+            $("#errurMessageInputImageEdit_"+ id).text("");
             $("#errurMessageInputUserNameEdit_"+ id).text(errur.name);
             $("#errurMessageInputUserEmailEdit_"+ id).text(errur.email);
+            $("#errurMessageInputImageEdit_"+ id).text(errur.image);
+            if(data.statusText = 'Content Too Large'){
+                $("#errurMessageInputImageEdit_"+ id).text("The uploaded image is too large. Please choose an image with a smaller file size to proceed with saving.");
+
+            }
+
 
         },
     });

@@ -101,7 +101,9 @@ class UserController extends Controller
             $request->all(),
             [
                 'name' => 'required|string|max:255',
-                'image' => 'image|mimes:png,jpg,jpeg,gif,svg|max:2048'
+                'image' => 'image|mimes:png,jpg,jpeg,gif,svg|max:2048',
+                'files[]' => 'max:2048',
+
             ],
             [
                 'name.required' => 'The name field is required',

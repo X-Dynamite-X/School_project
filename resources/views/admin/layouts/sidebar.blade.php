@@ -1,4 +1,4 @@
-<div class="flex flex-col h-screen bg-gray-800 text-white">
+<div class="flex flex-col my_h_93 bg-gray-800 text-white">
     <div class="px-4 py-5">
         <h1 class="text-2xl font-bold">Company Name</h1>
         <p class="text-gray-400">Dashboard</p>

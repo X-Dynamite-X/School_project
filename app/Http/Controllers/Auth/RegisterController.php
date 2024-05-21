@@ -52,6 +52,11 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:3', 'confirmed'],
+        ],[
+            'name.required' => 'The name field is required',
+            'email.required' => 'The email field is required',
+            'email.unique' => 'The email field is already exist',
+            'password.confirmed' => 'The password confirmation does not match.',
         ]);
     }
 
