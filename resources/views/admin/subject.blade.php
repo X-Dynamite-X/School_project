@@ -35,7 +35,6 @@
         <script src="{{ asset('js/subject/CreateSubject.js') }}"></script>
         <script src="{{ asset('js/subject/EditSubject.js') }}"></script>
         <script src="{{ asset('js/subject/DeleteSubject.js') }}"></script>
-        <script src="{{ asset('js/subject/infoSubject.js') }}"></script>
         <script src="{{ asset('js/DataTables/subjectUserDataTable.js') }}"></script>
         <script src="{{ asset('js/subjectUser/createSubjectUser.js') }}"></script>
         <script src="{{ asset('js/subjectUser/editSubjectUser.js') }}"></script>
