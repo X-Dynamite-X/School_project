@@ -21,14 +21,14 @@ Route::get(
     }
 );
 
-Auth::routes();
-//
-Route::prefix('')->middleware(["auth", ChackIsActive::class])->group(function () {
+Auth::routes(['verify' => true]);
+
+Route::prefix('')->middleware(["auth","verified", ChackIsActive::class])->group(function () {
     // Rout Users
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 });
 
-Route::prefix('admin')->middleware(["role:admin", "auth",])->group(function () {
+Route::prefix('admin')->middleware(["role:admin","verified", "auth",])->group(function () {
     // Rout Users
     Route::get('/user', [UserController::class, 'index'])->name('user_index');
     Route::get('/getUser', [UserController::class, 'getUser'])->name('getUser_index');

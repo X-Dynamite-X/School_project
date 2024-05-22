@@ -84,6 +84,9 @@ class UserController extends Controller
             "email" => $request->input('email'),
             "password" => $request->input('password'),
         ]);
+        $user->assignRole('user');
+        $user->givePermissionTo("notActev");
+
         return response()->json($user);
     }
 

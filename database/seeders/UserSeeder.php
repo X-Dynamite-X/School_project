@@ -20,10 +20,13 @@ class UserSeeder extends Seeder
                 'email' => 'dynamite@gmail.com',
                 'password' => Hash::make('123'),
                 // "userImage" => 'imageProfile/me.jpg',
+                "email_verified_at" => date("Y-m-d", strtotime("2024-05-23 01:32:59")),
             ],    [
                 'name' => 'madara',
                 'email' => 'madara@gmail.com',
                 'password' => Hash::make('123'),
+                "email_verified_at" => date("Y-m-d", strtotime("2024-05-23 01:32:59")),
+
             ],
         ]);
         for ($i = 3; $i <= 100; $i++) {
@@ -32,6 +35,8 @@ class UserSeeder extends Seeder
                 'name' => 'mozan'.$i,
                 'email' => 'mozan'.$i.'@gmail.com',
                 'password' => Hash::make('123'),
+                "email_verified_at" => date("Y-m-d", strtotime("2024-05-23 01:32:59")),
+
                 ],
             ]);
         }
