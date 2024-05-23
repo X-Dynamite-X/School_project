@@ -15,6 +15,7 @@
                         <th class="px-4 py-2 text-sm font-semibold text-gray-900 bg-gray-100">id</th>
                         <th class="px-4 py-2 text-sm font-semibold text-gray-900 bg-gray-100">Name</th>
                         <th class="px-4 py-2 text-sm font-semibold text-gray-900 bg-gray-100">Email</th>
+                        <th class="px-4 py-2 text-sm font-semibold text-gray-900 bg-gray-100">Subject in user</th>
                         <th class="px-4 py-2 text-sm font-semibold text-gray-900 bg-gray-100">Actev</th>
                         <th class="px-4 py-2 text-sm font-semibold text-gray-900 bg-gray-100">Role</th>
                         <th class="px-4 py-2 text-sm font-semibold text-gray-900 bg-gray-100">Action</th>
@@ -36,10 +37,10 @@
     <script type="text/javascript" src="https://cdn.datatables.net/2.0.6/js/dataTables.js"></script>
     @include("admin.model.user.routeUser")
     <script src="{{ asset('js/DataTables/userDataTable.js') }}"></script>
-    <script src="{{ asset('js/user/createUser.js') }}"></script>
-    <script src="{{ asset('js/user/editUser.js') }}"></script>
-    <script src="{{ asset('js/user/infoUser.js') }}"></script>
-    <script src="{{ asset('js/user/delete.js') }}"></script>
+    <script src="{{ asset('js/admin/user/createUser.js') }}"></script>
+    <script src="{{ asset('js/admin/user/editUser.js') }}"></script>
+    <script src="{{ asset('js/admin/user/infoUser.js') }}"></script>
+    <script src="{{ asset('js/admin/user/delete.js') }}"></script>
 
 
 

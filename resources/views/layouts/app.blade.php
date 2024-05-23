@@ -15,7 +15,7 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link rel="shortcut icon" href="{{ asset('log.png') }}" type="image/x-icon">
 
-        <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 
     @yield('css')
 
@@ -25,12 +25,14 @@
 <body>
     <div id="app">
         @include('layouts.nav')
-            @yield('content')
+        @yield('content')
 
     </div>
 
-    <script src="{{ asset('js/style.js/nav.js') }}">
-    </script>
+    <script src="{{ asset('js/style.js/nav.js') }}"></script>
+    @yield('js')
+
 </body>
+
 
 </html>

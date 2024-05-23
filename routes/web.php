@@ -7,6 +7,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\SubjectUserController;
+use App\Http\Controllers\User\UserController as UserControllerUser;
+use App\Http\Controllers\User\SubjectController as SubjectContreollerUser;
 
 Route::get(
     '/',
@@ -25,7 +27,10 @@ Auth::routes(['verify' => true]);
 
 Route::prefix('')->middleware(["auth","verified", ChackIsActive::class])->group(function () {
     // Rout Users
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/home', [SubjectContreollerUser::class, 'index'])->name('home');
+
+    Route::get('/user/profile', [UserControllerUser::class, 'index'])->name('profile_index');
+
 });
 
 Route::prefix('admin')->middleware(["role:admin","verified", "auth",])->group(function () {

@@ -85,9 +85,10 @@ $(document).on('click', '.editUserButton', function() {
             $("#errurMessageInputUserNameEdit_"+ user.id).text("");
             $("#errurMessageInputUserEmailEdit_"+ user.id).text("");
             $("#errurMessageInputImageEdit_"+ id).text("");
-
             $("#userNameId_" + user.id).text(user.name);
             $("#userEmailId_" + user.id).text(user.email);
+
+
             if (permission == "isActev") {
                 $("#userActevSpanId_" + user.id).text(permission).addClass("bg-green-100 text-green-800").removeClass("bg-red-400 text-white");
             }

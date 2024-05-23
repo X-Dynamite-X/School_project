@@ -12,11 +12,12 @@ use Yajra\DataTables\Facades\DataTables;
 
 class SubjectController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $subjects = Subject::all();
         $subjectUsers = SubjectUser::all();
         $users = User::all();
-        return view("admin.subject", [ 'subjects' => $subjects , "subjectUsers"=>$subjectUsers ,"users"=>$users]);
+        return view("admin.subject", ['subjects' => $subjects, "subjectUsers" => $subjectUsers, "users" => $users]);
     }
 
 
@@ -36,12 +37,16 @@ class SubjectController extends Controller
         $subjects = Subject::query();
         return DataTables::of($subjects)
             ->setRowId('trSubject_{{$id}}')
-            ->rawColumns([ "Action"])
+            ->rawColumns(["Action", "subjectInUser"])
             ->addColumn("Action", "admin.dataTables.subject.actionSubjectTable",)
+            ->addColumn("subjectInUser", function ($subject) {
+                return $subject->users->count();
+            })
             ->toJson();
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $validator = Validator::make(
             $request->all(),
             [
@@ -69,9 +74,10 @@ class SubjectController extends Controller
             'full_mark' => $request->input('full_mark'),
         ]);
         $users = User::all();
-        return response()->json([$subject,$users]);
+        return response()->json([$subject, $users]);
     }
-    public function update(Request $request, string $id){
+    public function update(Request $request, string $id)
+    {
         $subject = Subject::find($id);
 
         if (!$subject) {
@@ -120,6 +126,6 @@ class SubjectController extends Controller
         }
 
         $subject->delete();
-        return response()->json(["message"=>"Delete Successfuly"]);
+        return response()->json(["message" => "Delete Successfuly"]);
     }
 }

@@ -53,7 +53,10 @@ class UserController extends Controller
                 }
                 return $permission;
             })
-            ->rawColumns(["actev",'roles', "Action"])
+            ->addColumn("userInSubject", function ($user) {
+                return $user->subjects->count();
+            })
+            ->rawColumns(["actev",'roles', "Action",])
             ->setRowId('trUser_{{$id}}')
             ->addColumn("Action", "admin.dataTables.user.actionUserTable",)
             ->toJson();
